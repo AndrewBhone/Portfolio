@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#020617">
+  <meta name="description" content="Andrew Bhone — self-taught developer exploring AI, space technology, satellite tracking, and Earth observation.">
+  <title>Andrew Bhone | Cosmic Developer</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #020617;
+      --panel: rgba(8, 20, 42, .78);
+      --panel-strong: #08152b;
+      --line: rgba(125, 211, 252, .19);
+      --text: #e6f4ff;
+      --muted: #9bb2cc;
+      --cyan: #67e8f9;
+      --blue: #38bdf8;
+      --violet: #a78bfa;
+      --green: #5eead4;
+      --radius: 22px;
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 86px; }
+    body {
+      margin: 0; min-width: 320px; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65; overflow-x: hidden;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+      background:
+        radial-gradient(ellipse at 12% 4%, rgba(14, 116, 144, .25), transparent 34%),
+        radial-gradient(ellipse at 86% 25%, rgba(37, 99, 235, .16), transparent 34%),
+        radial-gradient(ellipse at 50% 88%, rgba(91, 33, 182, .13), transparent 40%),
+        #020617;
+    }
+    #stars { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: .65; }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .wrap { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
+    .topbar {
+      position: sticky; top: 0; z-index: 20; border-bottom: 1px solid rgba(125,211,252,.13);
+      background: rgba(2, 6, 23, .82); backdrop-filter: blur(18px);
+    }
+    .nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: -.03em; }
+    .brand-mark {
+      display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px;
+      border: 1px solid rgba(103,232,249,.4); background: linear-gradient(135deg, rgba(8,145,178,.35), rgba(30,64,175,.22));
+      color: var(--cyan); box-shadow: 0 0 25px rgba(34,211,238,.12); font-size: 19px;
+    }
+    .brand small { display: block; color: var(--muted); font-size: 10px; font-weight: 600; letter-spacing: .16em; }
+    .nav-links { display: flex; align-items: center; gap: 26px; color: #c0d2e8; font-size: 13px; }
+    .nav-links a:hover { color: var(--cyan); }
+    .nav-cta, .button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      border: 1px solid rgba(103,232,249,.42); background: rgba(8,145,178,.13);
+      color: #dffaff; border-radius: 999px; padding: 10px 16px; font-weight: 700; font-size: 13px;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .nav-cta:hover, .button:hover { transform: translateY(-2px); background: rgba(8,145,178,.25); border-color: var(--cyan); }
+    .menu-btn { display: none; border: 1px solid var(--line); background: #071329; color: var(--text); border-radius: 12px; width: 44px; height: 44px; font-size: 22px; cursor: pointer; }
+    .hero { padding: 88px 0 74px; position: relative; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr); align-items: center; gap: 55px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--cyan); font: 700 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .18em; text-transform: uppercase; }
+    .pulse { width: 7px; height: 7px; border-radius: 50%; background: #5eead4; box-shadow: 0 0 12px #5eead4; animation: pulse 1.8s infinite; }
+    h1 { margin: 20px 0 18px; font-size: clamp(42px, 6vw, 76px); line-height: .99; letter-spacing: -.065em; max-width: 720px; }
+    .gradient-text { color: transparent; background: linear-gradient(95deg, #e0f2fe 0%, #67e8f9 45%, #818cf8 100%); background-clip: text; -webkit-background-clip: text; }
+    .hero p { color: var(--muted); max-width: 590px; font-size: clamp(15px, 1.8vw, 18px); margin: 0; }
+    .typed-line { min-height: 27px; margin-top: 19px; color: #bae6fd; font: 600 13px ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .caret { display: inline-block; width: 8px; height: 16px; margin-left: 3px; vertical-align: -3px; background: var(--cyan); animation: blink .8s steps(2, start) infinite; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+    .button.primary { background: linear-gradient(100deg, #0891b2, #2563eb); border-color: transparent; box-shadow: 0 8px 28px rgba(14,165,233,.17); }
+    .button.ghost { border-color: var(--line); background: rgba(15,23,42,.55); }
+    .hero-visual { min-height: 355px; display: grid; place-items: center; position: relative; }
+    .orbit-scene { width: min(100%, 380px); aspect-ratio: 1; position: relative; display: grid; place-items: center; }
+    .orbit { position: absolute; border: 1px solid rgba(103,232,249,.25); border-radius: 50%; transform: rotate(-24deg); }
+    .orbit.one { width: 95%; height: 40%; }
+    .orbit.two { width: 82%; height: 72%; transform: rotate(56deg); border-color: rgba(129,140,248,.34); }
+    .orbit.three { width: 66%; height: 94%; transform: rotate(25deg); border-color: rgba(56,189,248,.16); }
+    .planet {
+      width: 42%; aspect-ratio: 1; border-radius: 50%; position: relative; overflow: hidden;
+      background: radial-gradient(circle at 28% 22%, #b9f4ff 0%, #38bdf8 13%, #1767a6 42%, #0b1c4a 72%, #020617 100%);
+      box-shadow: inset -22px -15px 35px rgba(2,6,23,.7), 0 0 50px rgba(56,189,248,.27), 0 0 110px rgba(14,165,233,.12);
+    }
+    .planet::before { content: ""; position: absolute; inset: 14% -15%; border-radius: 45%; background: repeating-linear-gradient(168deg, transparent 0 14px, rgba(165,243,252,.23) 15px 19px, transparent 20px 32px); transform: rotate(-19deg); filter: blur(1px); }
+    .planet::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: linear-gradient(115deg, transparent 35%, rgba(2,6,23,.72) 86%); }
+    .satellite { position: absolute; top: 18%; right: 10%; color: var(--cyan); font-size: 28px; filter: drop-shadow(0 0 10px rgba(103,232,249,.8)); animation: float 4s ease-in-out infinite; }
+    .visual-label { position: absolute; left: 0; bottom: 4%; border: 1px solid var(--line); background: rgba(2,6,23,.75); backdrop-filter: blur(12px); border-radius: 14px; padding: 12px 15px; font: 11px/1.8 ui-monospace, monospace; color: var(--muted); }
+    .visual-label strong { color: var(--green); font-weight: 700; }
+    .scroll-cue { margin-top: 42px; display: flex; align-items: center; gap: 12px; color: #66819f; font: 10px ui-monospace, monospace; letter-spacing: .17em; }
+    .scroll-cue::before { content: ""; width: 36px; height: 1px; background: #31516e; }
+    section { padding: 66px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 26px; }
+    .section-index { color: var(--cyan); font: 700 11px ui-monospace, monospace; letter-spacing: .16em; }
+    h2 { margin: 7px 0 0; font-size: clamp(26px, 4vw, 38px); line-height: 1.15; letter-spacing: -.045em; }
+    .section-note { color: var(--muted); max-width: 420px; font-size: 13px; margin: 0; }
+    .about-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 18px; }
+    .panel { border: 1px solid var(--line); background: linear-gradient(145deg, rgba(12,27,52,.88), rgba(4,12,28,.82)); border-radius: var(--radius); padding: 26px; box-shadow: 0 18px 50px rgba(0,0,0,.12); }
+    .panel p { color: var(--muted); margin: 0; }
+    .terminal-top { display: flex; gap: 6px; align-items: center; border-bottom: 1px solid rgba(125,211,252,.12); padding-bottom: 16px; margin-bottom: 17px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #f87171; }
+    .dot:nth-child(2) { background: #fbbf24; } .dot:nth-child(3) { background: #34d399; }
+    .terminal-title { margin-left: auto; color: #7290ae; font: 10px ui-monospace, monospace; }
+    .profile-lines { display: grid; gap: 11px; font: 12px/1.5 ui-monospace, monospace; }
+    .profile-lines div { display: grid; grid-template-columns: 100px 1fr; gap: 10px; }
+    .profile-lines span:first-child { color: #5e7d9d; }
+    .profile-lines span:last-child { color: #d8eafa; }
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; }
+    .stat { border: 1px solid rgba(125,211,252,.13); background: rgba(2,6,23,.28); border-radius: 14px; padding: 15px 12px; }
+    .stat strong { display: block; font-size: 22px; letter-spacing: -.04em; color: var(--cyan); }
+    .stat span { display: block; color: var(--muted); font-size: 11px; margin-top: 2px; }
+    .projects { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 17px; }
+    .project { display: flex; flex-direction: column; min-width: 0; border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; background: linear-gradient(150deg, rgba(10,25,49,.9), rgba(4,11,25,.84)); transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease; overflow: hidden; position: relative; }
+    .project:hover { transform: translateY(-4px); border-color: rgba(103,232,249,.48); box-shadow: 0 16px 42px rgba(8,145,178,.09); }
+    .project::after { content: ""; position: absolute; width: 130px; height: 130px; border-radius: 50%; top: -78px; right: -68px; background: var(--glow, rgba(34,211,238,.15)); filter: blur(2px); pointer-events: none; }
+    .project-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; position: relative; z-index: 1; }
+    .project-icon { display: grid; place-items: center; width: 48px; height: 48px; flex: 0 0 48px; border-radius: 15px; background: rgba(34,211,238,.09); border: 1px solid rgba(103,232,249,.19); font-size: 24px; }
+    .status { font: 10px ui-monospace, monospace; color: var(--green); border: 1px solid rgba(94,234,212,.2); background: rgba(13,148,136,.08); padding: 6px 9px; border-radius: 999px; white-space: nowrap; }
+    .project h3 { margin: 18px 0 4px; font-size: 21px; letter-spacing: -.03em; }
+    .project .category { color: var(--cyan); font: 700 9px ui-monospace, monospace; letter-spacing: .12em; text-transform: uppercase; }
+    .project p { color: var(--muted); font-size: 13px; margin: 12px 0 18px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: auto; }
+    .tag { color: #bdd5e9; border: 1px solid rgba(125,211,252,.14); background: rgba(15,23,42,.62); border-radius: 8px; padding: 5px 8px; font-size: 10px; }
+    .project-link { display: inline-flex; align-items: center; gap: 7px; margin-top: 19px; color: var(--cyan); font-weight: 750; font-size: 12px; }
+    .project-link:hover { color: white; }
+    .tech-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; }
+    .tech { display: flex; align-items: center; gap: 12px; border: 1px solid var(--line); border-radius: 15px; padding: 15px; background: rgba(8,20,42,.66); min-width: 0; }
+    .tech-icon { font-size: 23px; }
+    .tech strong { display: block; font-size: 12px; }
+    .tech span { display: block; color: var(--muted); font-size: 10px; margin-top: 2px; }
+    .flight-card { display: grid; grid-template-columns: .8fr 1.2fr; gap: 25px; align-items: center; }
+    .flight-card h3 { font-size: 25px; line-height: 1.2; margin: 10px 0; letter-spacing: -.04em; }
+    .flight-card p { color: var(--muted); font-size: 13px; }
+    .codebox { min-width: 0; border: 1px solid rgba(125,211,252,.2); background: #030a18; border-radius: 17px; overflow: hidden; }
+    .codehead { display: flex; justify-content: space-between; gap: 12px; padding: 12px 15px; border-bottom: 1px solid rgba(125,211,252,.12); color: #7894b3; font: 10px ui-monospace, monospace; }
+    pre { margin: 0; padding: 20px; overflow-x: auto; color: #c7e6fa; font: 12px/1.8 ui-monospace, SFMono-Regular, Menlo, monospace; tab-size: 4; }
+    .kw { color: #c4b5fd; } .str { color: #86efac; } .cm { color: #6483a4; }
+    .contact { text-align: center; padding: 42px 24px; border: 1px solid rgba(103,232,249,.22); border-radius: 26px; background: radial-gradient(ellipse at top, rgba(8,145,178,.15), transparent 65%), rgba(6,16,34,.78); }
+    .contact h2 { margin-bottom: 12px; }
+    .contact p { color: var(--muted); max-width: 570px; margin: 0 auto 23px; font-size: 14px; }
+    .contact-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 11px; }
+    footer { padding: 30px 0 34px; color: #6f88a5; font: 10px ui-monospace, monospace; letter-spacing: .05em; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    .backtop { color: var(--cyan); }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @keyframes pulse { 50% { opacity: .35; transform: scale(.75); } }
+    @keyframes blink { to { visibility: hidden; } }
+    @keyframes float { 50% { transform: translateY(-9px) rotate(7deg); } }
+
+    @media (max-width: 820px) {
+      .wrap { width: min(100% - 36px, 680px); }
+      .nav { min-height: 66px; }
+      .nav-links { gap: 16px; }
+      .hero { padding: 64px 0 52px; }
+      .hero-grid { grid-template-columns: minmax(0,1fr) minmax(210px,.72fr); gap: 24px; }
+      .hero-visual { min-height: 270px; }
+      .visual-label { font-size: 9px; padding: 9px 11px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .tech-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .flight-card { grid-template-columns: 1fr; }
+      section { padding: 54px 0; }
+    }
+    @media (max-width: 600px) {
+      html { scroll-padding-top: 72px; }
+      .wrap { width: calc(100% - 32px); }
+      .nav { min-height: 62px; gap: 10px; }
+      .brand-mark { width: 35px; height: 35px; }
+      .brand { font-size: 14px; gap: 8px; }
+      .brand small { font-size: 9px; }
+      .menu-btn { display: inline-grid; place-items: center; flex: 0 0 42px; }
+      .nav-cta { display: none; }
+      .nav-links {
+        display: none; position: absolute; left: 16px; right: 16px; top: 68px; padding: 12px;
+        border: 1px solid var(--line); border-radius: 16px; background: rgba(3,10,25,.97);
+        box-shadow: 0 20px 45px rgba(0,0,0,.35); flex-direction: column; align-items: stretch; gap: 0;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 12px 10px; border-radius: 9px; }
+      .nav-links a:hover { background: rgba(34,211,238,.08); }
+      .hero { padding: 51px 0 34px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 15px; }
+      .eyebrow { font-size: 9px; letter-spacing: .12em; }
+      h1 { font-size: clamp(40px, 12.5vw, 58px); margin: 17px 0 15px; }
+      .hero p { font-size: 14px; }
+      .typed-line { font-size: 11px; margin-top: 14px; }
+      .hero-actions { gap: 9px; margin-top: 21px; }
+      .button { padding: 11px 14px; font-size: 12px; }
+      .hero-visual { min-height: auto; margin: 8px auto 0; width: min(100%, 330px); }
+      .orbit-scene { width: 100%; }
+      .visual-label { left: 0; bottom: 0; }
+      .scroll-cue { margin-top: 29px; font-size: 9px; }
+      section { padding: 42px 0; }
+      .section-head { display: block; margin-bottom: 20px; }
+      .section-note { margin-top: 12px; font-size: 12px; }
+      h2 { font-size: 29px; }
+      .panel { padding: 19px; border-radius: 18px; }
+      .profile-lines { font-size: 10px; gap: 10px; }
+      .profile-lines div { grid-template-columns: 82px minmax(0,1fr); gap: 7px; overflow-wrap: anywhere; }
+      .stats-row { gap: 8px; }
+      .stat { padding: 12px 9px; }
+      .stat strong { font-size: 19px; }
+      .stat span { font-size: 9px; }
+      .projects { grid-template-columns: 1fr; gap: 12px; }
+      .project { padding: 20px; border-radius: 18px; }
+      .project h3 { font-size: 20px; }
+      .project p { font-size: 13px; }
+      .tech-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }
+      .tech { padding: 12px 10px; gap: 9px; border-radius: 13px; }
+      .tech-icon { font-size: 20px; }
+      .tech strong { font-size: 11px; }
+      .tech span { font-size: 9px; }
+      .flight-card h3 { font-size: 23px; }
+      pre { padding: 15px; font-size: 10px; line-height: 1.75; }
+      .contact { padding: 31px 18px; border-radius: 20px; }
+      .contact p { font-size: 12px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 10px; }
+    }
+    @media (max-width: 360px) {
+      .wrap { width: calc(100% - 24px); }
+      h1 { font-size: 39px; }
+      .hero-actions .button { flex: 1 1 100%; }
+      .tech { align-items: flex-start; flex-direction: column; }
+      .status { font-size: 9px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#home" aria-label="Andrew Bhone home">
+        <span class="brand-mark">✦</span>
+        <span>ANDREW BHONE<small>COSMIC DEVELOPER OS</small></span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="#about">Operator</a>
+        <a href="#missions">Missions</a>
+        <a href="#technology">Technology</a>
+        <a href="#flight-plan">Flight plan</a>
+      </nav>
+      <a class="nav-cta" href="#contact">Establish connection ↗</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow"><span class="pulse"></span> SYSTEM ONLINE / EXPLORATION MODE</div>
+          <h1>Exploring<br>the <span class="gradient-text">unknown.</span></h1>
+          <p>Self-taught developer building at the intersection of artificial intelligence, space technology, and real-world problem solving.</p>
+          <div class="typed-line"><span id="typed">Building AI for Earth &amp; space</span><span class="caret" aria-hidden="true"></span></div>
+          <div class="hero-actions">
+            <a class="button primary" href="#missions">Explore my missions <span aria-hidden="true">↘</span></a>
+            <a class="button ghost" href="https://github.com/Phelix652" target="_blank" rel="noopener noreferrer">GitHub profile ↗</a>
+          </div>
+          <div class="scroll-cue">SCROLL TO EXPLORE</div>
+        </div>
+        <div class="hero-visual" aria-label="Stylized planet and satellite illustration">
+          <div class="orbit-scene">
+            <div class="orbit one"></div><div class="orbit two"></div><div class="orbit three"></div>
+            <div class="planet"></div><div class="satellite" aria-hidden="true">✦</div>
+            <div class="visual-label">MISSION STATUS&nbsp; <strong>● ACTIVE</strong><br>SECTOR&nbsp; /&nbsp; EARTH → DEEP SPACE</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div><div class="section-index">01 // THE OPERATOR</div><h2>Curiosity is my engine.</h2></div>
+          <p class="section-note">Learn by building. Solve real problems. Keep exploring.</p>
+        </div>
+        <div class="about-grid">
+          <article class="panel reveal">
+            <p>I'm interested in the technology that helps us understand our planet, explore space, and solve real-world problems. I build projects to learn by doing—from satellite tracking and lunar image analysis to disaster-monitoring maps and AI assistants.</p>
+            <p style="margin-top:15px;color:#e2f4ff;font-weight:650">I don't just want to learn how technology works. I want to build things with it.</p>
+            <div class="stats-row">
+              <div class="stat"><strong>AI</strong><span>Experiments</span></div>
+              <div class="stat"><strong>EARTH</strong><span>Observation</span></div>
+              <div class="stat"><strong>SPACE</strong><span>Exploration</span></div>
+            </div>
+          </article>
+          <article class="panel reveal">
+            <div class="terminal-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="terminal-title">operator_profile.txt</span></div>
+            <div class="profile-lines">
+              <div><span>NAME</span><span>Andrew Bhone</span></div>
+              <div><span>IDENTITY</span><span>Self-taught developer</span></div>
+              <div><span>MISSION</span><span>Build useful technology</span></div>
+              <div><span>CORE TOOLS</span><span>Python · AI · APIs</span></div>
+              <div><span>INTERESTS</span><span>Space · Robotics · Earth observation</span></div>
+              <div><span>MINDSET</span><span>Learn → Build → Improve</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="missions">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div><div class="section-index">02 // ACTIVE MISSIONS</div><h2>Ideas becoming reality.</h2></div>
+          <p class="section-note">Selected projects exploring Earth data, space, and AI. Some are still experimental.</p>
+        </div>
+        <div class="projects">
+          <article class="project reveal" style="--glow:rgba(45,212,191,.18)">
+            <div class="project-top"><span class="project-icon">🌍</span><span class="status">● LIVE DEMO</span></div>
+            <h3>EarthPulse</h3><div class="category">Earth observation / disaster monitoring</div>
+            <p>An interactive map for exploring disaster-related information, with a focus on making useful data more accessible for areas such as Dawei.</p>
+            <div class="tags"><span class="tag">Geospatial data</span><span class="tag">Interactive maps</span><span class="tag">Earth monitoring</span></div>
+            <a class="project-link" href="https://earthpulsev9.netlify.app" target="_blank" rel="noopener noreferrer">OPEN LIVE DEMO ↗</a>
+          </article>
+          <article class="project reveal" style="--glow:rgba(56,189,248,.18)">
+            <div class="project-top"><span class="project-icon">🛰️</span><span class="status">● LIVE DEMO</span></div>
+            <h3>Orbit AI</h3><div class="category">ISS tracking / AI assistant</div>
+            <p>An ISS-focused project combining location tracking with AI-assisted explanations to make space information easier to explore.</p>
+            <div class="tags"><span class="tag">Satellite tracking</span><span class="tag">Python</span><span class="tag">AI assistant</span></div>
+            <a class="project-link" href="https://glittery-boba-6e04e3.netlify.app/#home" target="_blank" rel="noopener noreferrer">OPEN LIVE DEMO ↗</a>
+          </article>
+          <article class="project reveal" style="--glow:rgba(167,139,250,.18)">
+            <div class="project-top"><span class="project-icon">🌕</span><span class="status">R&amp;D / EXPERIMENTAL</span></div>
+            <h3>Lunar AI</h3><div class="category">Lunar science / computer vision</div>
+            <p>Exploring NASA–IBM's Lunar Foundation Model for lunar surface analysis and experimental crater-detection workflows.</p>
+            <div class="tags"><span class="tag">Lunar imagery</span><span class="tag">Model inference</span><span class="tag">Computer vision</span></div>
+          </article>
+          <article class="project reveal" style="--glow:rgba(96,165,250,.18)">
+            <div class="project-top"><span class="project-icon">🌐</span><span class="status">IN DEVELOPMENT</span></div>
+            <h3>Satellite Explorer</h3><div class="category">Orbital data / Earth observation</div>
+            <p>Python experiments for tracking satellites, visualizing orbital paths, and exploring satellite imagery.</p>
+            <div class="tags"><span class="tag">Skyfield</span><span class="tag">Orbital paths</span><span class="tag">Satellite imagery</span></div>
+          </article>
+          <article class="project reveal" style="--glow:rgba(251,146,60,.15)">
+            <div class="project-top"><span class="project-icon">🚀</span><span class="status">EXPERIMENTAL</span></div>
+            <h3>Artemis II Tracker</h3><div class="category">Spaceflight / mission information</div>
+            <p>An experimental project exploring mission information extraction, browser automation, and AI-assisted explanations.</p>
+            <div class="tags"><span class="tag">Spaceflight</span><span class="tag">Automation</span><span class="tag">AI</span></div>
+          </article>
+          <article class="project reveal" style="--glow:rgba(94,234,212,.15)">
+            <div class="project-top"><span class="project-icon">🧠</span><span class="status">IN DEVELOPMENT</span></div>
+            <h3>Jarvis — Second Brain</h3><div class="category">Local AI / personal knowledge</div>
+            <p>A personal knowledge-system project exploring local language models and retrieval-augmented generation with an Obsidian vault.</p>
+            <div class="tags"><span class="tag">Local AI</span><span class="tag">Obsidian</span><span class="tag">RAG</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="technology">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div><div class="section-index">03 // TECHNOLOGY MATRIX</div><h2>Tools for the mission.</h2></div>
+          <p class="section-note">Technologies I use and explore while building projects.</p>
+        </div>
+        <div class="tech-grid">
+          <div class="tech reveal"><span class="tech-icon">🐍</span><div><strong>Python</strong><span>Core development</span></div></div>
+          <div class="tech reveal"><span class="tech-icon">🧠</span><div><strong>Artificial intelligence</strong><span>Models &amp; assistants</span></div></div>
+          <div class="tech reveal"><span class="tech-icon">🗺️</span><div><strong>Geospatial data</strong><span>Maps &amp; Earth data</span></div></div>
+          <div class="tech reveal"><span class="tech-icon">🛰️</span><div><strong>Satellite tracking</strong><span>Orbits &amp; ground tracks</span></div></div>
+          <div class="tech reveal"><span class="tech-icon">🌐</span><div><strong>HTML / CSS / JS</strong><span>Web experiences</span></div></div>
+          <div class="tech reveal"><span class="tech-icon">🔌</span><div><strong>APIs</strong><span>Data integration</span></div></div>
+          <div class="tech reveal"><span class="tech-icon">👁️</span><div><strong>Computer vision</strong><span>Image analysis</span></div></div>
+          <div class="tech reveal"><span class="tech-icon">🛠️</span><div><strong>Git &amp; GitHub</strong><span>Version control</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="flight-plan">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div><div class="section-index">04 // CURRENT FLIGHT PLAN</div><h2>Learn. Build. Test. Improve.</h2></div>
+        </div>
+        <div class="panel flight-card reveal">
+          <div>
+            <div class="eyebrow"><span class="pulse"></span> DEVELOPMENT LOOP</div>
+            <h3>Every experiment is a step forward.</h3>
+            <p>This Python-style snippet represents my approach to learning and creating. It is illustrative pseudocode, not a complete runnable program.</p>
+          </div>
+          <div class="codebox">
+            <div class="codehead"><span>mission.py</span><span>PYTHON / PSEUDOCODE</span></div>
+            <pre><span class="kw">class</span> Developer:
+    <span class="kw">def</span> __init__(self):
+        self.mission = <span class="str">"Build useful technology"</span>
+        self.focus = [
+            <span class="str">"Artificial Intelligence"</span>,
+            <span class="str">"Space Technology"</span>,
+            <span class="str">"Earth Observation"</span>,
+        ]
+
+    <span class="kw">def</span> next_step(self):
+        <span class="kw">return</span> <span class="str">"Keep exploring."</span>
+
+<span class="cm"># Repeat. Learn something new.</span></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="contact reveal">
+          <div class="section-index">05 // ESTABLISH CONNECTION</div>
+          <h2>Curiosity is the starting point.</h2>
+          <p>Building is the mission. Somewhere between Earth and the stars, there's always something new to discover.</p>
+          <div class="contact-actions">
+            <a class="button primary" href="https://github.com/Phelix652" target="_blank" rel="noopener noreferrer">Explore my GitHub ↗</a>
+            <a class="button ghost" href="#home">Back to launchpad ↑</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>© <span id="year"></span> ANDREW BHONE · COSMIC DEVELOPER OS</span>
+      <span>MADE WITH CURIOSITY <span style="color:#67e8f9">✦</span> BUILT FOR THE UNKNOWN</span>
+      <a class="backtop" href="#home">BACK TO TOP ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile navigation
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+      menuBtn.textContent = open ? '×' : '☰';
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.setAttribute('aria-label', 'Open navigation menu');
+      menuBtn.textContent = '☰';
+    }));
+
+    // Lightweight typing animation
+    const phrases = [
+      'Building AI for Earth & space',
+      'Tracking satellites. Exploring the Moon.',
+      'Turning curiosity into technology.',
+      'Learn. Build. Test. Improve.'
+    ];
+    const typed = document.getElementById('typed');
+    let phraseIndex = 0, charIndex = phrases[0].length, deleting = false;
+    function typeLoop() {
+      const phrase = phrases[phraseIndex];
+      if (!deleting) {
+        charIndex++;
+        typed.textContent = phrase.slice(0, charIndex);
+        if (charIndex >= phrase.length) { deleting = true; setTimeout(typeLoop, 1500); return; }
+        setTimeout(typeLoop, 48);
+      } else {
+        charIndex--;
+        typed.textContent = phrase.slice(0, charIndex);
+        if (charIndex <= 0) { deleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; setTimeout(typeLoop, 300); return; }
+        setTimeout(typeLoop, 22);
+      }
+    }
+    setTimeout(typeLoop, 1800);
+
+    // Reveal elements as they enter the viewport; graceful fallback if unsupported
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      }), { threshold: 0.08 });
+      revealEls.forEach(el => observer.observe(el));
+    } else revealEls.forEach(el => el.classList.add('visible'));
+
+    // Small responsive starfield; capped for lower-powered phones
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let stars = [], width = 0, height = 0, dpr = 1;
+    function resizeStars() {
+      width = window.innerWidth; height = window.innerHeight;
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      canvas.width = Math.floor(width * dpr); canvas.height = Math.floor(height * dpr);
+      canvas.style.width = width + 'px'; canvas.style.height = height + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const count = Math.min(110, Math.max(35, Math.floor(width * height / 10000)));
+      stars = Array.from({length: count}, () => ({
+        x: Math.random() * width, y: Math.random() * height,
+        r: Math.random() * 1.15 + .2, a: Math.random() * .55 + .15,
+        drift: (Math.random() - .5) * .12
+      }));
+    }
+    function drawStars() {
+      ctx.clearRect(0, 0, width, height);
+      for (const s of stars) {
+        s.x += s.drift;
+        if (s.x < 0) s.x = width; if (s.x > width) s.x = 0;
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(186,230,253,${s.a})`; ctx.fill();
+      }
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) requestAnimationFrame(drawStars);
+    }
+    resizeStars(); drawStars();
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(resizeStars, 120);
+    }, { passive: true });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
