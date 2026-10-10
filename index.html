@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#020617">
+  <meta name="description" content="Andrew Bhone — self-taught developer exploring AI, space technology, satellite tracking, and Earth observation.">
+  <title>Andrew Bhone | Exploring the Unknown</title>
+  <style>
+    :root {
+      --bg: #020617; --panel: rgba(8, 22, 43, .78); --line: rgba(56,189,248,.24);
+      --cyan: #38bdf8; --blue: #0ea5e9; --text: #e2f2ff; --muted: #9bb4ca;
+      --purple: #a78bfa; --green: #5eead4;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; color: var(--text); background:
+      radial-gradient(ellipse at 50% -15%, rgba(14,165,233,.20), transparent 50%),
+      radial-gradient(ellipse at 90% 35%, rgba(124,58,237,.10), transparent 32%),
+      var(--bg); font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+      line-height: 1.65; overflow-x: hidden;
+    }
+    #stars { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: .65; }
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { color: white; }
+    .wrap { width: min(1120px, calc(100% - 36px)); margin: auto; }
+    nav { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:20px 0; }
+    .brand { color:var(--text); font-weight:800; letter-spacing:.08em; }
+    .brand span { color:var(--cyan); }
+    .navlinks { display:flex; gap:22px; flex-wrap:wrap; font-size:.9rem; }
+    .navlinks a { color:var(--muted); }
+    .navlinks a:hover { color:var(--cyan); }
+    .hero { min-height: 78vh; display:grid; place-items:center; text-align:center; padding:68px 0 90px; position:relative; }
+    .eyebrow { display:inline-flex; align-items:center; gap:9px; padding:7px 13px; border:1px solid var(--line); border-radius:999px; color:#bae6fd; background:rgba(8,47,73,.34); font: .78rem ui-monospace, SFMono-Regular, monospace; letter-spacing:.12em; }
+    .dot { width:7px; height:7px; border-radius:50%; background:#34d399; box-shadow:0 0 13px #34d399; }
+    h1 { font-size:clamp(2.7rem, 7vw, 5.8rem); line-height:1.03; letter-spacing:-.055em; margin:24px 0 18px; }
+    .gradient { background:linear-gradient(100deg,#e0f2fe 8%,#38bdf8 45%,#a78bfa 90%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .typing { min-height:1.8em; color:var(--cyan); font: clamp(.95rem, 2.5vw, 1.22rem) ui-monospace, SFMono-Regular, monospace; }
+    .hero p { max-width:700px; margin:22px auto 28px; color:var(--muted); font-size:1.05rem; }
+    .actions { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:9px; border:1px solid var(--line); border-radius:10px; padding:12px 18px; color:var(--text); background:rgba(8,22,43,.8); font-weight:700; transition:.2s; }
+    .btn.primary { color:#00111c; border-color:transparent; background:linear-gradient(100deg,#38bdf8,#67e8f9); }
+    .btn:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(14,165,233,.15); }
+    .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:42px; max-width:680px; width:100%; }
+    .stat { padding:14px; border:1px solid var(--line); border-radius:12px; background:rgba(2,6,23,.48); }
+    .stat strong { display:block; font-size:1.2rem; color:var(--cyan); }
+    .stat span { color:var(--muted); font-size:.78rem; letter-spacing:.08em; }
+    section { padding:64px 0; }
+    .section-head { margin-bottom:26px; }
+    .kicker { color:var(--cyan); font: .8rem ui-monospace, monospace; letter-spacing:.15em; }
+    h2 { font-size:clamp(1.7rem,4vw,2.5rem); margin:7px 0; letter-spacing:-.035em; }
+    .section-head p { color:var(--muted); max-width:690px; margin:8px 0 0; }
+    .about-grid { display:grid; grid-template-columns:1.25fr .75fr; gap:18px; }
+    .panel { border:1px solid var(--line); border-radius:18px; background:linear-gradient(145deg,rgba(8,22,43,.9),rgba(2,6,23,.82)); padding:24px; box-shadow:0 18px 70px rgba(0,0,0,.12); }
+    .panel p { color:var(--muted); }
+    .terminal { font: .9rem/1.9 ui-monospace, SFMono-Regular, monospace; overflow-wrap:anywhere; }
+    .terminal .key { color:var(--cyan); } .terminal .value { color:#dbeafe; }
+    .chips { display:flex; flex-wrap:wrap; gap:9px; margin-top:16px; }
+    .chip { border:1px solid var(--line); color:#bae6fd; background:rgba(14,165,233,.08); border-radius:8px; padding:6px 10px; font-size:.83rem; }
+    .projects { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+    .project { position:relative; overflow:hidden; transition:transform .22s,border-color .22s; }
+    .project:hover { transform:translateY(-5px); border-color:rgba(56,189,248,.58); }
+    .project::after { content:""; position:absolute; width:150px; height:150px; border-radius:50%; right:-65px; top:-75px; background:rgba(56,189,248,.07); filter:blur(2px); pointer-events:none; }
+    .project-top { display:flex; align-items:center; gap:13px; }
+    .iconbox { width:48px; height:48px; display:grid; place-items:center; flex-shrink:0; border:1px solid var(--line); border-radius:13px; font-size:1.5rem; background:rgba(14,165,233,.09); }
+    .project h3 { margin:0; font-size:1.2rem; }
+    .category { color:var(--cyan); font: .7rem ui-monospace,monospace; letter-spacing:.1em; }
+    .project p { color:var(--muted); margin:17px 0; }
+    .project ul { padding-left:19px; color:#c7d8e8; font-size:.91rem; }
+    .project ul li { margin:5px 0; }
+    .project-link { display:inline-block; margin-top:8px; font-weight:750; }
+    .status { font-size:.75rem; color:#a7f3d0; border:1px solid rgba(52,211,153,.25); padding:4px 8px; border-radius:999px; margin-left:auto; white-space:nowrap; }
+    .skills-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .skill h3 { margin:0 0 12px; font-size:1rem; }
+    .skill .chips { margin-top:0; }
+    .flight { color:#cbd5e1; font: .9rem/1.85 ui-monospace,monospace; white-space:pre-wrap; }
+    .flight .cyan { color:var(--cyan); } .flight .purple { color:var(--purple); } .flight .green { color:var(--green); }
+    .contact { text-align:center; padding:40px 24px; }
+    .contact p { max-width:600px; margin:12px auto 22px; color:var(--muted); }
+    footer { border-top:1px solid rgba(56,189,248,.15); padding:28px 0 36px; color:#7692aa; text-align:center; font-size:.85rem; }
+    .orbit { position:absolute; width:min(65vw,620px); aspect-ratio:1; border:1px solid rgba(56,189,248,.10); border-radius:50%; pointer-events:none; animation:spin 65s linear infinite; }
+    .orbit:before,.orbit:after { content:""; position:absolute; border:1px solid rgba(167,139,250,.12); border-radius:50%; inset:12%; }
+    .orbit:after { inset:27%; border-color:rgba(56,189,248,.13); }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    @media(max-width:760px) {
+      .navlinks { gap:12px; font-size:.82rem; }
+      .about-grid,.projects { grid-template-columns:1fr; }
+      .skills-grid { grid-template-columns:1fr; }
+      .hero { min-height:70vh; padding-top:55px; }
+      .stats { grid-template-columns:1fr; max-width:300px; }
+      .status { display:none; }
+    }
+    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms!important; scroll-behavior:auto!important; transition-duration:.01ms!important; } }
+  </style>
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="#home">AB<span>://</span>MISSION</a>
+      <div class="navlinks">
+        <a href="#about">Operator</a><a href="#missions">Missions</a><a href="#skills">Tech</a><a href="#contact">Connect</a>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="orbit"></div>
+        <div style="position:relative;z-index:1">
+          <div class="eyebrow"><span class="dot"></span> SYSTEM ONLINE · EXPLORATION MODE</div>
+          <h1><span class="gradient">Exploring<br>the Unknown.</span></h1>
+          <div class="typing"><span id="typed"></span><span aria-hidden="true">_</span></div>
+          <p>I'm Andrew Bhone — a self-taught developer building projects at the intersection of artificial intelligence, Earth observation, and space technology.</p>
+          <div class="actions">
+            <a class="btn primary" href="#missions">🚀 Explore My Missions</a>
+            <a class="btn" href="#contact">✉ Establish Connection</a>
+          </div>
+          <div class="stats">
+            <div class="stat"><strong>EARTH ↔ SPACE</strong><span>EXPLORATION DOMAIN</span></div>
+            <div class="stat"><strong>AI + PYTHON</strong><span>CORE TOOLKIT</span></div>
+            <div class="stat"><strong>BUILD · TEST · LEARN</strong><span>DEVELOPMENT LOOP</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="section-head"><div class="kicker">01 // THE OPERATOR</div><h2>Curiosity, converted into code.</h2><p>I learn by building real projects, testing ideas, and improving them one step at a time.</p></div>
+        <div class="about-grid">
+          <div class="panel">
+            <p>I'm interested in technology that helps us understand our planet, explore the Moon, track spacecraft, and solve practical problems. My projects range from disaster-monitoring maps to AI-assisted space tools.</p>
+            <p>My goal is to keep growing as a developer and work toward the world of space technology, AI, and robotics.</p>
+            <div class="chips"><span class="chip">Space Technology</span><span class="chip">Artificial Intelligence</span><span class="chip">Earth Observation</span><span class="chip">Robotics</span></div>
+          </div>
+          <div class="panel terminal">
+            <div><span class="key">NAME</span> <span class="value">: Andrew Bhone</span></div>
+            <div><span class="key">IDENTITY</span> <span class="value">: Self-taught developer</span></div>
+            <div><span class="key">MISSION</span> <span class="value">: Build useful technology</span></div>
+            <div><span class="key">TOOLS</span> <span class="value">: Python · AI · APIs</span></div>
+            <div><span class="key">INTERESTS</span> <span class="value">: Space · Robotics · Science</span></div>
+            <div><span class="key">STATUS</span> <span class="green">: ALWAYS LEARNING</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="missions">
+        <div class="section-head"><div class="kicker">02 // ACTIVE MISSIONS</div><h2>Projects from the workbench.</h2><p>Experiments and tools built around real data, practical problems, and the curiosity to explore further.</p></div>
+        <div class="projects">
+          <article class="panel project">
+            <div class="project-top"><div class="iconbox">🌍</div><div><div class="category">EARTH OBSERVATION</div><h3>EarthPulse</h3></div><span class="status">LIVE DEMO</span></div>
+            <p>An interactive disaster-monitoring map designed to make environmental and hazard-related information easier to explore, with a focus on Dawei.</p>
+            <ul><li>Interactive geospatial map</li><li>Disaster and environmental data exploration</li><li>Public-facing monitoring interface</li></ul>
+            <a class="project-link" href="https://earthpulsev9.netlify.app" target="_blank" rel="noopener">↗ Open EarthPulse</a>
+          </article>
+          <article class="panel project">
+            <div class="project-top"><div class="iconbox">🛰️</div><div><div class="category">SPACE TRACKING</div><h3>Orbit AI</h3></div><span class="status">LIVE DEMO</span></div>
+            <p>An ISS-focused tracker that combines location and movement information with AI-assisted explanations.</p>
+            <ul><li>International Space Station tracking</li><li>AI-assisted space explanations</li><li>Space information interface</li></ul>
+            <a class="project-link" href="https://glittery-boba-6e04e3.netlify.app/#home" target="_blank" rel="noopener">↗ Open Orbit AI</a>
+          </article>
+          <article class="panel project">
+            <div class="project-top"><div class="iconbox">🌕</div><div><div class="category">LUNAR SCIENCE</div><h3>Lunar AI</h3></div><span class="status" style="color:#c4b5fd">IN DEVELOPMENT</span></div>
+            <p>An experimental workflow using the NASA–IBM Lunar Foundation Model for lunar surface analysis and crater-detection experiments.</p>
+            <ul><li>Lunar imagery analysis</li><li>Foundation-model inference</li><li>Experimental computer vision</li></ul>
+            <span class="project-link" style="color:#a78bfa">Research & development</span>
+          </article>
+          <article class="panel project">
+            <div class="project-top"><div class="iconbox">🌐</div><div><div class="category">ORBITAL DATA</div><h3>Satellite Explorer</h3></div></div>
+            <p>Python experiments for calculating satellite positions, visualizing orbital paths, and exploring Earth-observation imagery.</p>
+            <ul><li>Satellite position calculations</li><li>Ground-track visualization</li><li>Satellite imagery exploration</li></ul>
+            <span class="project-link">Building and experimenting</span>
+          </article>
+          <article class="panel project">
+            <div class="project-top"><div class="iconbox">🚀</div><div><div class="category">SPACEFLIGHT</div><h3>Artemis II Tracker</h3></div></div>
+            <p>An experimental project exploring mission-information extraction and AI-assisted explanations for a spaceflight tracker.</p>
+            <ul><li>Browser automation experiments</li><li>Mission information parsing</li><li>AI-assisted explanations</li></ul>
+            <span class="project-link">Experimental project</span>
+          </article>
+          <article class="panel project">
+            <div class="project-top"><div class="iconbox">🧠</div><div><div class="category">LOCAL AI</div><h3>Jarvis — Second Brain</h3></div></div>
+            <p>A personal knowledge-system experiment using local language models and retrieval workflows to work with notes and knowledge.</p>
+            <ul><li>Local AI experiments</li><li>Obsidian knowledge workflows</li><li>Retrieval-augmented generation</li></ul>
+            <span class="project-link">Personal R&D</span>
+          </article>
+        </div>
+      </section>
+
+      <section id="skills">
+        <div class="section-head"><div class="kicker">03 // TECHNOLOGY MATRIX</div><h2>Tools in the hangar.</h2><p>A growing toolkit used to prototype, analyze data, and turn ideas into working projects.</p></div>
+        <div class="skills-grid">
+          <div class="panel skill"><h3>⌘ Development</h3><div class="chips"><span class="chip">Python</span><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">Git</span><span class="chip">GitHub</span></div></div>
+          <div class="panel skill"><h3>◈ AI & Data</h3><div class="chips"><span class="chip">LLM Inference</span><span class="chip">Computer Vision</span><span class="chip">APIs</span><span class="chip">Data Visualization</span><span class="chip">RAG</span></div></div>
+          <div class="panel skill"><h3>◎ Space & Earth</h3><div class="chips"><span class="chip">Satellite Tracking</span><span class="chip">Skyfield</span><span class="chip">Earth Observation</span><span class="chip">Geospatial Data</span><span class="chip">Mapping</span></div></div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head"><div class="kicker">04 // CURRENT FLIGHT PLAN</div><h2>Build. Test. Improve.</h2></div>
+        <div class="panel flight"><span class="purple">MISSION_PROTOCOL</span> = {
+  <span class="cyan">"learn"</span>: <span class="green">"something new"</span>,
+  <span class="cyan">"build"</span>: <span class="green">"something useful"</span>,
+  <span class="cyan">"test"</span>: <span class="green">"with real data"</span>,
+  <span class="cyan">"improve"</span>: <span class="green">"one step at a time"</span>
+}
+
+<span class="purple">while</span> mission_is_active:
+    learn()
+    build()
+    test()
+    improve()</div>
+      </section>
+
+      <section id="contact">
+        <div class="panel contact">
+          <div class="kicker">05 // ESTABLISH CONNECTION</div>
+          <h2>Somewhere between Earth and the stars.</h2>
+          <p>I'm learning, building, and exploring. Check out my projects and follow the journey.</p>
+          <div class="actions">
+            <a class="btn primary" href="https://github.com/" target="_blank" rel="noopener">⌘ GitHub</a>
+            <a class="btn" href="https://earthpulsev9.netlify.app" target="_blank" rel="noopener">🌍 EarthPulse</a>
+            <a class="btn" href="https://glittery-boba-6e04e3.netlify.app/#home" target="_blank" rel="noopener">🛰️ Orbit AI</a>
+          </div>
+          <p style="margin-bottom:0;font-size:.9rem">Curiosity is the starting point. Building is the mission.</p>
+        </div>
+      </section>
+    </main>
+    <footer>© <span id="year"></span> Andrew Bhone · EXPLORING THE UNKNOWN · BUILT WITH CURIOSITY</footer>
+  </div>
+  <script>
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let stars = [], w, h;
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = window.innerWidth; h = window.innerHeight;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      stars = Array.from({length: Math.min(150, Math.floor(w*h/6500))}, () => ({
+        x: Math.random()*w, y: Math.random()*h, r: Math.random()*1.35+.2,
+        a: Math.random()*.65+.15, s: Math.random()*.25+.04
+      }));
+    }
+    function draw() {
+      ctx.clearRect(0,0,w,h);
+      for (const s of stars) {
+        s.a += (Math.random()-.5)*.035; s.a = Math.max(.12,Math.min(.8,s.a));
+        s.y -= s.s*.15; if (s.y < -2) { s.y=h+2; s.x=Math.random()*w; }
+        ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+        ctx.fillStyle = `rgba(125,211,252,${s.a})`; ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    }
+    resize(); draw(); window.addEventListener('resize', resize);
+    const phrases = ['AI FOR EARTH & SPACE', 'SATELLITES. SCIENCE. DISCOVERY.', 'TURNING CURIOSITY INTO TECHNOLOGY'];
+    const target = document.getElementById('typed');
+    let phrase=0, pos=0, deleting=false;
+    function type() {
+      const full=phrases[phrase];
+      target.textContent=full.slice(0,pos);
+      if (!deleting && pos < full.length) { pos++; setTimeout(type,55); }
+      else if (!deleting) { deleting=true; setTimeout(type,1300); }
+      else if (pos > 0) { pos--; setTimeout(type,25); }
+      else { deleting=false; phrase=(phrase+1)%phrases.length; setTimeout(type,350); }
+    }
+    type();
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
